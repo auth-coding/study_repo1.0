@@ -7,7 +7,6 @@
 + [慕课网--版本控制入门，搬进Github][8]
 + [如何高效利用GitHub][9]
 + [专为设计师而写的GitHub快速入门教程][10]
-+ [如何搭建一个独立博客——简明Github Pages与Hexo教程][11]
 + ......
 
 
@@ -21,4 +20,3 @@
   [8]: http://www.imooc.com/learn/390
   [9]: http://www.yangzhiping.com/tech/github.html
   [10]: http://www.ui.cn/detail/20957.html
-  [11]: http://www.jianshu.com/p/05289a4bc8b2
