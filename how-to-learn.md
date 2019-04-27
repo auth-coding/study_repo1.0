@@ -1,4 +1,6 @@
-# git学习链接
+# 系统性技能学习
+
+## git学习链接
 
 + [廖雪峰老师的Git教程][3]
 + [Git简明指南][4]
@@ -20,3 +22,8 @@
   [9]: http://www.yangzhiping.com/tech/github.html
   [10]: http://www.ui.cn/detail/20957.html
   [11]:http://pcottle.github.io/learnGitBranching/
+
+## markdown语法与规范
+
++ [Markdown——入门指南](http://www.jianshu.com/p/1e402922ee32/)
++ [GitHub上README写法暨markdown语法解读](http://www.tuicool.com/articles/zIJrEjn)
