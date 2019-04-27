@@ -23,7 +23,7 @@ author@liyi
 - README.MD, 即本文件，仓库级别的说明文档；
 - .gitignore, 可在此文件中匹配添加不需要git跟踪的文件， 比如
 开发环境的配置文件, .idea, java 字节码文件, python pyc等编译或运行后的文件
-how-to-learn.md, 根目录下的此文件，主要用于介绍梗概性，基础性的，非系统性的较小知识点，比如git的学习, markdown的学习。
+- how-to-learn.md, 根目录下的此文件，主要用于介绍梗概性，基础性的，非系统性的较小知识点，比如git的学习, markdown的学习。
 
 ## 目录结构--暂定
 
