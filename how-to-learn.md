@@ -1,4 +1,5 @@
-## git学习链接
+# git学习链接
+
 + [廖雪峰老师的Git教程][3]
 + [Git简明指南][4]
 + [图解Git][5]
@@ -9,9 +10,6 @@
 + [专为设计师而写的GitHub快速入门教程][10]
 + [图形化git分支教学][11]
 + ......
-
-
-
 
   [3]: http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/
   [4]: http://www.bootcss.com/p/git-guide/
