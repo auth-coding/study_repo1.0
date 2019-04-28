@@ -18,4 +18,4 @@
 3. python中print和在交互式环境下变量名的区别  
     print是python中的打印函数， 会对转移字符做处理，比如\b就会让光标回退一格再继续打印后面的值，再交互式环境中，直接使用变量名输出结果，输出的是这个变量存储在计算机中的值而不是打印出来的结果， 而\b的ASCII码值应该就是\x08,  
 
-    <img src="/Users/liyi/Downloads/diff.jpg" />
+    <img src="../img/diff.jpg" />
