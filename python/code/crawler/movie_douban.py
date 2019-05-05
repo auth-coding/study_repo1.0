@@ -6,8 +6,6 @@ desc: 爬取豆瓣电影top250的电影名字、url、评分、推荐语、排�
 
 import requests
 from bs4 import BeautifulSoup
-from urllib.parse import urljoin
-
 
 
 def get_parsed_response(request_url):
@@ -24,7 +22,8 @@ def main():
         # 每页25个item, 总共爬取250个
         url = "https://movie.douban.com/top250?start={}&filter=".format(offset)
         doc_tree = get_parsed_response(url)
-        for item in doc_tree.find_all("div", class_="item"):
+        items = doc_tree.find_all("div", class_="item")
+        for item in items:
             movie = {}
             hd = item.find("div", class_="hd")
             movie["title"] = hd.find("span", class_="title").text
