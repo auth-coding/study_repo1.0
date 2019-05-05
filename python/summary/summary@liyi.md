@@ -14,8 +14,31 @@
     * requests，最好用的http(s)请求库, 支持各种方法，以及构造复杂请求参数，甚至可以完美作为程序中的postman
 
     * pandas, pandas支持对各种数据文件的(csv, xlsx等等)读取,以及数据对象的各种操作分析， 比起csv,xlrd等模块更好用。
+    
+    * wordcloud，可以根据文本或者词频生成词云,支持各种样式和设置和背景。
+    
+    * jieba， 一个好用的nlp库， 可用于分词，准确率极高。
 
 3. python中print和在交互式环境下变量名的区别  
     print是python中的打印函数， 会对转移字符做处理，比如\b就会让光标回退一格再继续打印后面的值，再交互式环境中，直接使用变量名输出结果，输出的是这个变量存储在计算机中的值而不是打印出来的结果， 而\b的ASCII码值应该就是\x08,  
 
     ![print和变量值得差异](../img/diff.jpg)
+    
+4. python下载文件
+    ```python
+   from urllib.request import urlretrieve
+   # python2 from urllib import urlretrieve
+   download_url = "https://www.baidu.com/img/bd_logo1.png"
+   file_path = "../img/baidu.png"
+   urlretrieve(download_url, file_path)
+
+    ```
+    
+5. python网址编码
+    ```python
+   from urllib.parse import quote
+   keyword = "周杰伦"
+   params = quote(keyword.encode("utf-8"))
+   search_url = "https://y.qq.com/portal/search.html#page=1&searchid=1&remoteplace=txt.yqq.top&t=song&w={}".format(params)
+
+    ```
