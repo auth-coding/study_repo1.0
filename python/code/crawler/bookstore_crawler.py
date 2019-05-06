@@ -16,7 +16,7 @@ ROOT_URL = "http://books.toscrape.com/"
 def get_classify_info():
     """
     爬取网上书店Books to Scrape中所有书的分类类型
-    :return 返回分类列表
+    :return返回分类列表
     """
     res = requests.get(ROOT_URL)
     soup = BeautifulSoup(res.text, "html.parser")
@@ -32,9 +32,8 @@ def get_classify_info():
 
 def get_books(category_tag):
     """
-    爬取某一分类下的图书列表，书名，评分，价格等三种信息
-    :param category_tag: 分类节点
-    :return: 
+    爬取某一分类下的图书列表,书名，评分，价格等三种信息
+    :param category_tag:分类节点
     """
     category_url = urljoin(ROOT_URL, category_tag["href"])
     res = requests.get(category_url)
