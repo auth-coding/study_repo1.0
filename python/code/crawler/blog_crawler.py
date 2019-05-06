@@ -1,7 +1,8 @@
 """
 author@liyi
 date: 2019/5/6
-desc: 爬取简易博客文字标题，链接，发布时间
+desc: 爬取简易博客文字标题,链接,发布时间
+
 """
 
 import requests
