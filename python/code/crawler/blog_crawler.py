@@ -8,7 +8,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-class BlogCrawler():
+class BlogCrawler(object):
     def __init__(self):
         self.root_url = "https://spidermen.cn/"
         self.root_html_tree = self.__get_doc_tree()
