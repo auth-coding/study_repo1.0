@@ -4,7 +4,7 @@ author@liyi
 'desc': '爬取qq音乐指定歌手第一页歌曲列表',
 """
 import requests
-from urllib.parse import quote, urljoin
+from urllib.parse import quote
 
 
 class MusicCrawler(object):
