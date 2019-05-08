@@ -27,3 +27,6 @@
 
 + [Markdown——入门指南](http://www.jianshu.com/p/1e402922ee32/)
 + [GitHub上README写法暨markdown语法解读](http://www.tuicool.com/articles/zIJrEjn)
+
+## python虚拟环境管理
+- [使用virtualenv和virtualenvwrapper管理虚拟环境](http://codingpy.com/article/virtualenv-must-have-tool-for-python-development/)
