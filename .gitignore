@@ -4,3 +4,6 @@
 .idea
 
 # pyc
+
+# mac os dir
+.DS_Store
