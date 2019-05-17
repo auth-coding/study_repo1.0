@@ -98,9 +98,42 @@ redis则把数据存在内存里(也会存在硬盘从而实现数据持久化)�
     `hkeys key`  
 - hvals 返回所有属性的values
     `hvals key`
+    
+### redis数据结构之list
+- 按照插入顺序排序的链表
+- ArrayList使用数组方式， LinkedList使用双向链表方式
+ 
+- lpush 即left push在左侧插入元素，返回列表长度  
+    `lpush key value [value...]`  
+- rpush right push  
+    `rpush key value [value...]`  
+- lpop  返回弹出的元素  
+    `lpop key`  
+- rpop  尾部/右侧弹出   
+    `rpop key`  
+- lrange 返回列表  
+    `lrange key start stop`  
+    `lrange key 0 -1`  
+- llen 返回列表长度  
+    `llen key`  
+- lpushx 头插， 不存在指定列表则不创建  
+    `lpushx key value`
+- rpushx 尾插， 返回插入后长度  
+    `rpushx key value`  
+- lrem 删除指定元素，返回删除的个数  
+    `lrem  key count value`  
+    `lrem key 0 2` count=0代表删除所有  
+- lset  
+    `lset key index value`  
+- linsert  
+    `linsert key before|after pivot value`
+
 
 ## 番外
 - redis的设计处处透着简洁明了， 比如安装和启动命令，甚至如此，作者的官方redis只支持linux下环境
 - hash数据结构中， 只有hincr和hincrby，
 而没有hdecr, hdecrby, 可能通过incr 负数实现
 decr， 也体现了作者的极简主义
+- 列表的从头部插入和尾部插入有区别， 所以有lpush和rpush，
+但是取列表， 因为支持负索引，所以只有lrange。
+- 从右边remove和从左边remove明显有区别，但是却没有rrem命令
