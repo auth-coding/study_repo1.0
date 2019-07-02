@@ -30,3 +30,4 @@
 
 ## python虚拟环境管理
 - [使用virtualenv和virtualenvwrapper管理虚拟环境](http://codingpy.com/article/virtualenv-must-have-tool-for-python-development/)
+- [新兴的虚拟环境管理方式pipenv](https://zhuanlan.zhihu.com/p/37581807)
