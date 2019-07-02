@@ -12,5 +12,4 @@
 *.class
 
 # book
-
-_book
+*/_book
