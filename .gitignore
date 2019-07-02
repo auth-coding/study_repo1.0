@@ -7,3 +7,6 @@
 
 # mac os dir
 .DS_Store
+
+# java class
+*.class
