@@ -10,3 +10,7 @@
 
 # java class
 *.class
+
+# book
+
+_book
