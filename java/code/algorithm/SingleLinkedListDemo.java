@@ -34,6 +34,10 @@ public class SingleLinkedListDemo {
         System.out.println("删除3号节点后");
         list.show();
         System.out.printf("现在链表长度为%d\n", list.getLength());
+        // // 翻转链表
+        System.out.println("链表翻转后:");
+        list.reverse();
+        list.show();
 
     }
 }
@@ -93,6 +97,24 @@ class SingleLinkedList {
             tmp = tmp.next;
         }
         System.out.println("未找到对应节点");
+    }
+
+    public void reverse(){
+        // 翻转链表
+        HeroNode new_head = new HeroNode(0, "", "");
+        HeroNode node = this.head.next;
+        while(true){
+            if(node != null){
+                this.head.next = this.head.next.next;
+                node.next = new_head.next;
+                new_head.next = node;
+                node = this.head.next;
+            }
+            else{
+                break;
+            }
+        }
+        this.head = new_head;
     }
 
     public HeroNode remove(int no) {
