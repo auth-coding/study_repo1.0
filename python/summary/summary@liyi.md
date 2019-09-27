@@ -1,5 +1,14 @@
-# python 学习总结
+# python 
 
+## 学习资料
+
+### python 进阶
+- [python cookbook](https://python3-cookbook.readthedocs.io/zh_CN/latest/)
+
+### python异步任务
+- [celery]异步任务框架(https://www.pyfdtic.com/2018/03/16/python-celery-%E4%BB%BB%E5%8A%A1%E9%98%9F%E5%88%97/)
+
+## 学习感悟和笔记
 
 1. python使用smtp协议发送邮件的一些坑
     * 不同的邮件服务器会有不同的规定，qq邮箱会要求启用该邮箱的smtp服务，并通过授权码作为密码登录(该授权码一般用于登录第三方客户端, 比如简信,程序也可以看做第三方客户端)。
