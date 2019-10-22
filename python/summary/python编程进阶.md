@@ -379,7 +379,197 @@ c = Counter(data)
 # 取频度最大的三项
 >>> c.most_common(3) # 返回的是一个元素是(key,value)的列表
 >>> [(11, 4), (7, 4), (16, 2)]
+# 可以想象，如果Counter不是有序的，那么most_common的内部实现也是极有可能是通过堆实现的。
 ```
 
-#### 4.2 统计
+#### 4.2 统计英文文章中单词的词频
+
+其实原理一样，只要将文章按照单词切成一个列表，就可以创建Counter对象
+
+* 使用第三方库`lipsum`生成一段随机文章
+
+```python
+# pip install lipsum
+from lipsum import generate_paragraphs
+# 生成三个段落的文章(也许文章并没有实际意义，或者不构成文章)
+article = generate_paragraphs(3)
+>>> print(article)
+>>> Videsne quam sit magna dissensio?philosophus nobilis, a quo non solum Graecia et Italia, sed etiamomnis barbaria commota
+est, honestum quid sit, si id non sit involuptate, negat se intellegere, nisi forte illud, quodmultitudinis rumore
+laudetur. ego autem hoc etiam turpe esse saepeiudico et, si quando turpe non sit, tum esse non turpe, cum id
+amultitudine laudetur, quod sit ipsum per se rectum atque laudabile, non ob eam causam tamen illud dici esse honestum,
+quia laudetur amultis, sed quia tale sit, ut, vel si ignorarent id homines, vel siobmutuissent, sua tamen pulchritudine
+esset specieque laudabile.itaque idem natura victus, cui obsisti non potest, dicit alio locoid, quod a te etiam paulo
+ante dictum est, non posse iucunde vivinisi etiam honeste.
+
+Quid nunc 'honeste' dicit? idemne, quod iucunde? ergo ita: non posse honeste vivi, nisi honestevivatur? an nisi populari
+fama? sine ea igitur iucunde negat posse vivere? quid turpius quam sapientis vitam exinsipientium sermone pendere?
+quid ergo hoc loco intellegithonestum? certe nihil nisi quod possit ipsum propter se iurelaudari. nam si propter
+voluptatem, quae est ista laus, quae possite macello peti? non is vir est, ut, cum honestatem eo loco habeat, ut sine ea
+iucunde neget posse vivi, illud honestum, quod popularesit, sentiat et sine eo neget iucunde vivi posse, aut
+quicquamaliud honestum intellegat, nisi quod sit rectum ipsumque per se suavi, sua natura, sua sponte laudabile.
+
+Itaque, Torquate, cum diceresclamare Epicurum non posse iucunde vivi, nisi honeste et sapienteret iuste viveretur, tu
+ipse mihi gloriari videbare. tanta visinerat in verbis propter earum rerum, quae significabantur hisverbis, dignitatem,
+ut altior fieres, ut interdum insisteres, utnos intuens quasi testificarere laudari honestatem et iustitiamaliquando ab
+Epicuro. quam te decebat iis verbis uti, quibus siphilosophi non uterentur, philosophia omnino non egeremus! istorumenim
+verborum amore, quae perraro appellantur ab Epicuro, sapientiae, fortitudinis, iustitiae, temperantiae,
+praestantissimisingeniis homines se ad philosophiae studium contulerunt.
+```
+
+> 使用print的原因是因为在终端中使用变量名查看变量值，是不转义的，所以使用print，把空格和换行都显示出来，以便阅读
+
+* 使用正则表达式把文章切成单词列表
+
+```python
+import re
+words = re.split('\W+', article)
+# \w在正则表达式中表示`for unicode str(patterns)`,即用来匹配unicode字符，一般可以用来匹配单词，词语.
+# 但是我们使用split来分割字符串，所以需要匹配非单词，非词语的字符或字符串，即使用\W(大写)
+
+# 限于篇幅不再展示words列表
+```
+
+* 使用单词列表创建Counter对象
+
+```python
+from collections import Counter
+
+c = Counter(words)
+# 取频度最高的10个单词
+>>> c.most_common(10)
+>>> [('non', 12),
+ ('sit', 7),
+ ('nisi', 6),
+ ('quod', 6),
+ ('posse', 6),
+ ('iucunde', 6),
+ ('et', 5),
+ ('se', 5),
+ ('ut', 5),
+ ('est', 4)]
+```
+
+### 5. 如果快速统计多个字典中的公共键
+
+问题描述: 西甲联赛每轮有若干个球员各自进了若干个球，每一轮的进球数据就是一个字典，需要统计每一轮都有进球的球员，也就是统计多个字典中公共键。
+
+#### 5.1 使用第一轮的键分别迭代接下来的若干轮
+
+* 生成若干轮进球数据
+
+```python
+from random import randint,sample
+# sample的作用就是在可迭代对象中随机选取若干个样本
+>>> sample('abcdefgh', 3)
+# 在‘abcdefgh’中随机选取了3个
+>>> ['d', 'f', 'g']
+# 生成三轮进球数据
+>>> d1 = {k:randint(1,4) for k in sample('abcdefgh', randint(3,6))}
+>>> {'c': 4, 'd': 3, 'h': 3}
+>>> d2 = {k:randint(1,4) for k in sample('abcdefgh', randint(3,6))}
+>>> {'d': 2, 'f': 4, 'h': 4}
+>>> d3 = {k:randint(1,4) for k in sample('abcdefgh', randint(3,6))}
+>>> {'b': 2, 'c': 1, 'f': 3, 'g': 3, 'h': 1}
+
+```
+
+* 使用容易直接想到的算法
+
+```python
+for k in d1:
+  if k in d2 and k in d3:
+    print(k)
+>>> h
+# 使用列表存储结果，直接使用列表表生成式即可
+>>> [k for k in d1 if k in d2 and k in d3]
+>>> ['h']
+```
+
+> 但是这种办法也会存在巨大的缺陷，如果比赛轮数很多，每一轮都判断一下是不太实际的，因此这个办法不够通用
+
+* 假设我们有若干轮比赛--寻求通用的解决方法
+
+```python
+# 假设每一轮d球都在一个字典列表里
+d = [d1, d2, d3] # 通用的若干轮
+# 使用map函数对除第一轮的所有数据进行判断，匿名函数返回第一轮的关键字是否在传入的可迭代对象的元素里， map也就是返回一大堆ture或者false，使用all函数做一个与的操作
+>>> [k for k in d[0] if all(map(lambda item: k in item, d[1:]))]
+>>> ['h']
+```
+
+#### 5.2 使用集合的交集操作求公共键
+
+> 使用all函数做布尔值的与操作，就与集合的原理类似
+>
+> 显而易见的想法是，我们可以将字典的keys转换成集合，并对集合做交集即可得到公共键。
+>
+> 也许python早就想到了这种需求，dict.keys()返回的是key-view对象，虽然不能是字典的子类，但是支持集合交集并集等操作。
+>
+> dict.keys()支持集合操作的前提是，字典的键不会存在重复，也就省去了手动转换成集合这一步骤，比如dict.values()就不支持集合操作。
+
+```python
+# 通过map函数得到每一轮的进球球员集合的生成器对象
+g = map(lambda item: item.keys(), d)
+# 通过reduce函数对两两做交集
+>>> res = reduce(lambda k1,k2:k1&k2, g)
+>>> {'h'}
+
+# 当然以上也可以合成一步操作
+```
+
+### 6. 如何让字典保持有序
+
+> 字典本身是无序的，但是有时候字典元素的顺序是有意义的，比如键是学生的名字，值是学生的分数或者名次，你能过名字很好的查询到学生的名次，但是你不方便通过名次查询到对应的学生，当然有时候这也是不成立的，因为你无法保证字典的各个值是唯一的，是和键一一对应的，所以这种需求仅适用于某些特定场景。
+>
+> 字典有序的作用或者需求主要是当然遍历字典时，也能得到有序的元素
+>
+> 虽然之前我们已经学习了根据字典值的大小排序，但是那种毕竟是一种算法而不是一种数据结构，最后得到的结果也不是字典，又或者字典的值并不利于排序，所以学习OrderedDict的用法很有必要。
+
+#### 6.1 将数据有序插入OrderedDict
+
+```python
+from collections import OrderedDict
+from random import shuffle
+students = list('abcdefgh')
+# 洗牌，shuffle是原地操作
+shuffle(students)
+>>> students
+# 假设这就按照排名排序的学生列表
+>>> ['g', 'b', 'c', 'h', 'd', 'e', 'a', 'f']
+od = OrderedDict()
+for rank, student in enumerate(students, 1):
+  	od[student] = rank
+>>> od
+>>  OrderedDict([('g', 1),
+             ('b', 2),
+             ('c', 3),
+             ('h', 4),
+             ('d', 5),
+             ('e', 6),
+             ('a', 7),
+             ('f', 8)])
+```
+
+#### 6.2 获取有序字典的几项
+
+> 字典本身是不支持切片的， 但是可以通过工具函数islice得到帮助
+
+```python
+from itertools import islice
+
+# 取可迭代对象的iter[3]-iter[5]
+>>> list(islice(range(10), 3,6))
+>>> [3,4,5]
+# 同样可以迭代有序字典
+>>> list(islice(od, 3,6))
+>>> ['h', 'd', 'e']
+
+# 可以封装一个函数，用于通过名次查询学生姓名
+def query_by_rank(d, a, b=None):
+		a -= 1 # 计算机从零计数， 名次从1到n
+    if b is None:
+				b = a+1
+     return list(islice(d, a, b))
+```
 
